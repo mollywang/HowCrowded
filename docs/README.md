@@ -1,5 +1,8 @@
 # HowCrowded
 
+![How Crowded](/images/HowCrowded.png)
+Format: ![Alt Text](url)
+
 #####HowCrowded is an app for people who want to know crowded places are before they have to make the effort to travel there. This is applicable for everyone from restaurant and bar-goers to neurotic students looking for a carrel in Huntsman or empty desk in Van Pelt.
 
 #####What problem does it solve?
