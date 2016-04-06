@@ -7,7 +7,7 @@ have to make the effort to travel there. This is applicable for everyone from
 restaurant and bar-goers to neurotic students looking for a carrel in Huntsman 
 or empty desk in Van Pelt.
 
-Video Pitch:	https://vimeo.com/157685498
+Video Pitch:	https://vimeo.com/157685908
 
 ## Project Component:
 
