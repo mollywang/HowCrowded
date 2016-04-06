@@ -56,5 +56,5 @@ Components should have the following approximate relative complexity:
 | User Module          | 2      |
 | Web App              | 3      |
 
-### Data
+## Data:
 Data is stored in .csv file with 24 columns representing 24 hours of the day. Each column will have a decimal value between 0 and 1 that is the average of people's responses to the question "Is this place crowded?" with Yes being 1 and No being 0. Each location will have its own .csv file with this data.
