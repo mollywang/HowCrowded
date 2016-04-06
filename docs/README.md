@@ -1,6 +1,7 @@
 # HowCrowded
 
 ![How Crowded](HowCrowded.png)
+
 HowCrowded is a web app for people who want to know crowded places are before they
 have to make the effort to travel there. This is applicable for everyone from 
 restaurant and bar-goers to neurotic students looking for a carrel in Huntsman 
