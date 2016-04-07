@@ -71,4 +71,4 @@ Let's say Smokes has an average score of 0.680 and 14 recorded responses for hou
 
 ((0.680 * 14) + 1) / 15 = 0.701
 
-This is just calculating the new average by integrating the new answer. We'll update the score to 0.701 and the count to 15 and then process the next input, if any.
+This is just calculating the new average. We'll update the score to 0.701 and the count to 15 and then process the next input, if any.
