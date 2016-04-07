@@ -58,3 +58,17 @@ Components should have the following approximate relative complexity:
 
 ## Data:
 Data is stored in .csv file with 24 columns representing 24 hours of the day. Each column will have a decimal value between 0 and 1 that is the average of people's responses to the question "Is this place crowded?" with Yes being 1 and No being 0. Each location will have its own .csv file with this data.
+
+### Quality Control Module:
+Our quality control will be performed through user input: after someone receives an answer to a question they've asked, they will answer "yes" or "no" to the question "Was this a valid answer?" If the answer is yes (the response was a "yes" or a "no"), then we'll pass the data to the aggregation module and aggregate it into our dataset and the user who contributed it will receive credit for contributing. If it's not valid (for example, someone sends back "nsksdajne" or "car"), then the answerer gave a bad answer and they won't receive any credit and the data won't be integrated into our dataset.
+
+Since the answers of "yes" and "no" can be subjective, it's hard to validate whether or not the user gave a truthful answer. We're working on figuring out a way to reconcile this.
+
+### Aggregation Module:
+If the answer is deemed quality, then the answer will be aggregated into the current data for the given place and time. If, for example, we received a "yes" that Smokes is busy at 11:30 pm, we will find the information in our database for Smokes and the hour 23:00-24:00.
+
+Let's say Smokes has an average score of 0.680 and 14 recorded responses for hour 23:00-24:00. With a 15th input of "yes", we'll update the score like this:
+
+((0.680 * 14) + 1) / 15 = 0.701
+
+This is just calculating the new average by integrating the new answer. We'll update the score to 0.701 and the count to 15 and then process the next input, if any.
