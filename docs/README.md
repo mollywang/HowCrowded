@@ -79,6 +79,10 @@ Let's say Smokes has an average score of 0.680 and 14 recorded responses for hou
 This is just calculating the new average. We'll update the score to 0.701 and the count to 15 and then process the next input, if any.
 
 ### Part Two Deliverables:
+Raw data, sample input for aggregation, sample input for QC: input.csv found under /src 
+
+Sample output for aggregation and sample output for QC: fake_data.csv under /data
+
 Code for QC: found under /src/user
 
 Code for aggregation: found under /src/aggragation 
