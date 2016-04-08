@@ -48,16 +48,21 @@ as well as keeping an open query count.
 ### Component Complexity
 
 Components should have the following approximate relative complexity:
+
 | Component            | Points |
-| -------------------- | ------ |
+
 | Space Module         | 2      |
-| Communcations Module | 4      |
+
+| Communications Module | 4     |
+
 | Aggregation Module   | 4      |
+
 | User Module          | 2      |
+
 | Web App              | 3      |
 
 ## Data:
-Data is stored in .csv file with 24 columns representing 24 hours of the day. Each column will have a decimal value between 0 and 1 that is the average of people's responses to the question "Is this place crowded?" with Yes being 1 and No being 0. Each location will have its own .csv file with this data.
+Data is stored in .csv file with 24 columns representing 24 hours of the day. Each column will have a decimal value between 0 and 1 that is the average of people's responses to the question "Is this place crowded?" with Yes being 1 and No being 0. Each location will have its own .csv file with this data. 
 
 ### Quality Control Module:
 Our quality control will be performed through user input: after someone receives an answer to a question they've asked, they will answer "yes" or "no" to the question "Was this a valid answer?" If the answer is yes (the response was a "yes" or a "no"), then we'll pass the data to the aggregation module and aggregate it into our dataset and the user who contributed it will receive credit for contributing. If it's not valid (for example, someone sends back "nsksdajne" or "car"), then the answerer gave a bad answer and they won't receive any credit and the data won't be integrated into our dataset.
@@ -72,3 +77,8 @@ Let's say Smokes has an average score of 0.680 and 14 recorded responses for hou
 ((0.680 * 14) + 1) / 15 = 0.701
 
 This is just calculating the new average. We'll update the score to 0.701 and the count to 15 and then process the next input, if any.
+
+### Part Two Deliverables:
+Code for QC: found under /src/user
+
+Code for aggregation: found under /src/aggragation 
