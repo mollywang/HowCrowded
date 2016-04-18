@@ -13,4 +13,5 @@ var direct = function(user, response) {
     //   otherwise, produce an error
     // should @return a response to the text, or null if none is required
     // could also provide more functionality (such as help, options, etc)
+    return 'you said "' + response + '"'
 }
