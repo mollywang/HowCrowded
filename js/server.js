@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 
 
 // route to respond to a text message
-app.post('/response_hook', function(req, res) {
+app.get('/response_hook', function(req, res) {
     // validate that this request really came from Twilio
     if (twilio.validateExpressRequest(req, creds.AUTH)) {
 
