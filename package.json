@@ -1,0 +1,32 @@
+{
+  "name": "crowdr",
+  "version": "1.0.0",
+  "description": "Finds out how packed Smokes is.",
+  "main": "js/server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "parse-cloud-express": "^1.2.0",
+    "express": "^4.13.4",
+    "twilio": "^2.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mollywang/HowCrowded.git"
+  },
+  "keywords": [
+    "Smokes",
+    "Blarneys"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mollywang/HowCrowded/issues"
+  },
+  "homepage": "https://github.com/mollywang/HowCrowded#readme"
+}
