@@ -4,10 +4,27 @@ var Parse = cloud.Parse;
 Parse.initialize("EADFqiDJ5SS1qXkcJM6FILbpT9d14sO5gO3FwksD",
 				 "bdY6CgnZI7bNTxFWoepER874qK81WYLYUT62xSVp");
 
-var Response = Parse.Object.extend("Response"); //create template for Response class
+/*var Response = Parse.Object.extend("Response");
+var test = new Response();
+
+test.set("Answer", true);
+test.set("Place", "Blarney");
+test.set("Time", 23);*/
+
+var Account = Parse.Object.extend("Account");
+var test = new Account();
+
+test.set("phoneNumber", "12345");
+test.set("confidence", 40);
+
+test.save(null, {
+		success: function(gameScore) {
+			console.log("Saved");
+		}
+	});
 
 //set all busy times @ blarneys
-for (i = 1; i < 3; i++) { 
+/*for (i = 1; i < 3; i++) { 
     var blarney = new Response();
     blarney.set("Answer", true);
 	blarney.set("Place", "Blarneys");
@@ -86,6 +103,6 @@ for (i = 3; i < 9; i++) {
 			console.log("Saved");
 		}
 	});
-}
+}*/
 
 
