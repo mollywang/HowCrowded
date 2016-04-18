@@ -23,17 +23,15 @@ module.exports = function() {
                  "bdY6CgnZI7bNTxFWoepER874qK81WYLYUT62xSVp");
     
     return {
-        user: {
+        database: {
             updateConfidence: function(user, confidence) {
                 var User = Parse.Object.extend("Account");
                 var query = new Parse.Query(User);
                 query.equalTo("phoneNumber", user);
                 query.find({
                     success: function(results) {
-                        console.log("Old confidence: " + results[0].get("confidence"));
                         results[0].set("confidence", confidence);
                         results[0].save();
-                        console.log("New confidence: " + results[0].get("confidence"));
                     },
                     error: function(error) {
                         console.log("Query for user failed - phone number is not in database");
@@ -47,7 +45,7 @@ module.exports = function() {
                 query.equalTo("phoneNumber", user);
                 query.find({
                     success: function(results) {
-                        console.log(results[0].get("confidence"));
+                        console.log("Confidence: " + results[0].get("confidence"));
                         return results[0].get("confidence");
                     },
                     error: function(error) {
@@ -55,8 +53,19 @@ module.exports = function() {
                     }
                 });
             },
-            recordResponse: function(user, response, time) {
-                // record in response
+            recordResponse: function(user, response, time, place) {
+                var userMod = require('./user.js')();
+                var valid = userMod.confidence.record(user, response);
+                console.log(valid);
+                if (valid) {
+                    Response = Parse.Object.extend("Response");
+                    var resp = new Response();
+
+                    resp.set("Answer", userMod.confidence.yesOrNo(response));
+                    resp.set("Time", time);
+                    resp.set("Place", place);
+                    resp.save();
+                }
             }
         },
     }
