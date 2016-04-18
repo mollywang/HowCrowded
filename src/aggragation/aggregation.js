@@ -14,9 +14,9 @@ function score(res) {
 
 	var avg = total / res.length;
 	if (avg > 0.5) {
-		return true, float(avg * 100);
+		return true, (avg * 100);
 	}
 	else {
-		return false, float((1 - avg) * 100);
+		return false, ((1 - avg) * 100);
 	}
 }
