@@ -5,13 +5,29 @@
  *
  */
 
-module.exports = function() {
-    return {
+var creds  = require('./credentials.js')
+var client = require('twilio')(creds.AUTH, creds.TOKEN);
 
-        // user should be a phone number (as a string)
-        send: function(user, msg) {
-            // text them message to the user
+module.exports = {
+    send: function(user, msg, callback) {
+        if (!callback) {
+            callback = function(error, message) {
+                if (!error) {
+                    console.log('message sent.')
+                }
+            }
         }
+        client.sms.messages.create({
+            to: user,
+            from: '+18552651514',
+            body: msg
+        }, function(error, message) {
+            if (error) {
+                console.log('\033[92mERROR in send():\033[0m')
+                console.log(error);
+            }
+            else if (callback) callback();
+        }); 
     }
 }
 
