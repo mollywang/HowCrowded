@@ -53,7 +53,7 @@ module.exports = function() {
                     }
                 });
             },
-            recordResponse: function(user, response, time, place) {
+            recordResponse: function(user, response, time, place, callback) {
                 var userMod = require('./user.js')();
                 userMod.confidence.record(user, response, function(valid) {
                     console.log(valid);
@@ -66,6 +66,7 @@ module.exports = function() {
                         resp.set("Place", place);
                         resp.save();
                     }
+                    callback(valid);
                 });
                 
             }
