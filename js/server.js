@@ -20,10 +20,12 @@ app.get('/response_hook', function(req, res) {
     var body = res.req.query.Body;
 
     // send response to user
-    var response = 'You said, "' + body + '"'; // switchboard.direct(from, body);
-    if (response) {
-        notify.send(from, response);
-    }
+    switchboard.direct(from, body, function(msg) {
+        console.log('sending message: ' + msg);
+        notify.send(from, msg, function() {
+            console.log('sent off the text request');
+        });
+    });
 
     // send an empty response to twilio
     res.type('text/xml');

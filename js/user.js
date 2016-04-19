@@ -15,6 +15,7 @@ module.exports = function() {
     return {
         confidence: {
 			record: function(user, response, callback) {
+                console.log('recording confidence');
 				db.database.getConfidence(user, function(conf) {
 					if (YES.indexOf(response.toLowerCase()) > -1 || NO.indexOf(response.toLowerCase()) > -1) {			
 						db.database.updateConfidence(user, conf + 1);

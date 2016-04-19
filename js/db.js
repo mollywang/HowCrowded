@@ -24,7 +24,35 @@ module.exports = function() {
     
     return {
         database: {
-            updateConfidence: function(user, confidence) {
+            isUser: function(user, callback) {
+                var User = Parse.Object.extend("Account");
+                var query = new Parse.Query(User);
+                query.equalTo("phoneNumber", user);
+                query.find({
+                    success: function(results) {
+                        if (results.length === 0) {
+                            console.log('added a user');
+                            var Account = Parse.Object.extend("Account");
+                            var created = new Account();
+                            created.set("phoneNumber", user);
+                            created.set("confidence", 3);
+                            created.save(null, {
+                                success: function() {
+                                    callback();
+                                }
+                            });                   
+                        } else {
+                            console.log('user already there');
+                            callback();
+                        }
+                    },
+                    error: function(error) {
+                        console.log('ERROR IN isUSER');
+                        console.log(error);
+                    }
+                });
+            },
+            updateConfidence: function(user, confidence, callback) {
                 var User = Parse.Object.extend("Account");
                 var query = new Parse.Query(User);
                 query.equalTo("phoneNumber", user);
@@ -39,6 +67,7 @@ module.exports = function() {
                 });
             },
             getConfidence: function(user, callback) {
+                console.log('in getConfidence: ' + user);
                 // get user confidence
                 var User = Parse.Object.extend("Account");
                 var query = new Parse.Query(User);
@@ -55,6 +84,7 @@ module.exports = function() {
             },
             recordResponse: function(user, response, time, place, callback) {
                 var userMod = require('./user.js')();
+                console.log('in recordResponse');
                 userMod.confidence.record(user, response, function(valid) {
                     console.log(valid);
                     if (valid) {

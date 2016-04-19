@@ -20,13 +20,17 @@ module.exports = function() {
         				var yes = 0;
         				var no = 0;
         				for (var i = 0; i < results.length; i++) {
-        					if (results[i].get("Place") === place && results[i].get("Time") == time) {
-        						if (results[i].get("Answer") == true) yes++;
-        						else no++;
+        					if (results[i].get("Place").toLowerCase() === place && results[i].get("Time") == time) {
+        						if (results[i].get("Answer")) yes++;
+        						else                          no++;
         					}
         				}
 
         				var avg =  yes / (yes + no);
+                        console.log('in getScore');
+                        console.log('\tavg: ' + avg);
+                        console.log('\tyes: ' + yes);
+                        console.log('\tno:  ' + no);
 						if (avg > 0.5) {
 							callback({
 								crowded: true, 
