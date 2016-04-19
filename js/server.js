@@ -16,14 +16,18 @@ app.get('/', function (req, res) {
 
 // route to respond to a text message
 app.get('/response_hook', function(req, res) {
-
     var from = res.req.query.From;
     var body = res.req.query.Body;
 
-    // ask for a response message
-    var response = switchboard.direct(from, body);
+    // send response to user
+    var response = 'You said, "' + body + '"'; // switchboard.direct(from, body);
+    if (response) {
+        notify.send(from, response);
+    }
 
-    res.send(response);
+    // send an empty response to twilio
+    res.type('text/xml');
+    res.send((new twilio.TwimlResponse()).toString());
 });
 
 app.listen(app.get('port'), function() {
