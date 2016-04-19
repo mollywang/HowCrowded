@@ -14,14 +14,16 @@ module.exports = function() {
     
     return {
         confidence: {
-			record: function(user, response) {
-				if (YES.indexOf(response.toLowerCase()) > -1 || NO.indexOf(response.toLowerCase()) > -1) {
-					db.database.updateConfidence(user, db.database.getConfidence(user) + 1);
-					return true;
-				} else { 
-					db.database.updateConfidence(user, db.database.getConfidence(user) - 1);
-					return false;
-				}
+			record: function(user, response, callback) {
+				db.database.getConfidence(user, function(conf) {
+					if (YES.indexOf(response.toLowerCase()) > -1 || NO.indexOf(response.toLowerCase()) > -1) {			
+						db.database.updateConfidence(user, conf + 1);
+						callback(true);
+					} else { 
+						db.database.updateConfidence(user, conf - 1);
+						callback(false);
+					}
+				})			
 			},
 
 			yesOrNo: function(response) {

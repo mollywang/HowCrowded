@@ -38,7 +38,7 @@ module.exports = function() {
                     }
                 });
             },
-            getConfidence: function(user) {
+            getConfidence: function(user, callback) {
                 // get user confidence
                 var User = Parse.Object.extend("Account");
                 var query = new Parse.Query(User);
@@ -46,7 +46,7 @@ module.exports = function() {
                 query.find({
                     success: function(results) {
                         console.log("Confidence: " + results[0].get("confidence"));
-                        return results[0].get("confidence");
+                        callback(results[0].get("confidence"));
                     },
                     error: function(error) {
                         console.log("Query for user failed - phone number is not in database");
@@ -55,17 +55,19 @@ module.exports = function() {
             },
             recordResponse: function(user, response, time, place) {
                 var userMod = require('./user.js')();
-                var valid = userMod.confidence.record(user, response);
-                console.log(valid);
-                if (valid) {
-                    Response = Parse.Object.extend("Response");
-                    var resp = new Response();
+                userMod.confidence.record(user, response, function(valid) {
+                    console.log(valid);
+                    if (valid) {
+                        Response = Parse.Object.extend("Response");
+                        var resp = new Response();
 
-                    resp.set("Answer", userMod.confidence.yesOrNo(response));
-                    resp.set("Time", time);
-                    resp.set("Place", place);
-                    resp.save();
-                }
+                        resp.set("Answer", userMod.confidence.yesOrNo(response));
+                        resp.set("Time", time);
+                        resp.set("Place", place);
+                        resp.save();
+                    }
+                });
+                
             }
         },
     }
