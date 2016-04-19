@@ -10,13 +10,6 @@ var client = require('twilio')(creds.AUTH, creds.TOKEN);
 
 module.exports = {
     send: function(user, msg, callback) {
-        if (!callback) {
-            callback = function(error, message) {
-                if (!error) {
-                    console.log('message sent.')
-                }
-            }
-        }
         client.sms.messages.create({
             to: user,
             from: '+18552651514',

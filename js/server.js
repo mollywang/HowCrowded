@@ -10,38 +10,24 @@ var app = express();
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function (req, res) {
-    //notify.send('+18577568635', 'Hey, b.', function(err, msg) {
-        //console.log(err);
-        //console.log(msg);
-        //res.send('Texting now.');
-    //});
     res.send('Under Construction');
 });
 
 
 // route to respond to a text message
 app.get('/response_hook', function(req, res) {
-    // validate that this request really came from Twilio
-    if (twilio.validateExpressRequest(req, creds.AUTH)) {
+    var from = res.req.query.From;
+    var body = res.req.query.Body;
 
-        // ask for a response message
-        var response = switchboard.direct(res['From'], res['Body']);
-
-        console.log('RECIEVED RESPONSE');
-        console.log(res);
-        console.log();
-        
-        if (response != null) {
-            notify.send(res['From'], response);
-        }
-
-        // send HTTP 200 Success response to Twilio
-        res.send(200);
-
+    // send response to user
+    var response = 'You said, "' + body + '"'; // switchboard.direct(from, body);
+    if (response) {
+        notify.send(from, response);
     }
-    else {
-        res.send(401);
-    }
+
+    // send an empty response to twilio
+    res.type('text/xml');
+    res.send((new twilio.TwimlResponse()).toString());
 });
 
 app.listen(app.get('port'), function() {
