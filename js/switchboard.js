@@ -3,7 +3,7 @@ var user        = require('./user.js')();
 var db          = require('./db.js')();
 
 var QUESTION  = [ "is", "?", "how" ];
-var LOCATIONS = [ 'blarneys', 'huntsman' ];
+var LOCATIONS = [ 'blarn', 'hunts', 'smoke', 'copa', 'harve', 'commo', 'starb', 'saxby', 'rodin', 'harri', 'harnw' ];
 
 /*
  *  this will be called by our web app when it 
@@ -17,7 +17,7 @@ var error = function(callback) {
         '"[LOCATION] [YES/NO]" to report if a place is crowded\n' +
         'or \n' +
         '"[LOCATION]?" to ask if a place is crowded right now\n' 
-    var res2 = '(Currently Supported Locations: Blarneys, Huntsman)'
+    var res2 = '(Try a bar or study space on the west end of campus)'
     callback(res1);
     callback(res2);
 }
@@ -32,7 +32,7 @@ var checkResponse = function(user, res, callback) {
         console.log('its a report');
         var location = split[0];
         var answer   = split[1];
-        if (LOCATIONS.indexOf(location) === -1) {
+        if (LOCATIONS.indexOf(location.substring(0, 5).toLowerCase()) === -1) {
             error(callback);
             return;
         }
