@@ -1,6 +1,7 @@
 var aggregation = require('./aggregation.js')();
 var user        = require('./user.js')();
 var db          = require('./db.js')();
+var notify      = require('./notify.js');
 
 var QUESTION  = [ "is", "?", "how" ];
 var LOCATIONS = [ 'blarn', 'hunts', 'smoke', 'copa', 'harve', 'commo', 'starb', 'saxby', 'rodin', 'harri', 'harnw' ];
@@ -84,13 +85,29 @@ var checkResponse = function(user, res, callback) {
                 }
                 callback(msg);
             } else {
-                var msg = location + ' is not crowded'
+                var msg = trueName(location) + ' is not crowded'
                 if (ans.value === NaN) {
                     msg = msg + ' but we have no current reports to back that up.'
                 } else {
                     msg = msg + ' (and ' + ans.value + '% of people have said so)'
                 }
                 callback(msg);
+            }
+        });
+
+        var msg = 'Hello! If you are at ' + trueName(location) + 
+            ', please respond ' + 'with "' + trueName(location) + 
+            ' is crowded" or ' + '"' + trueName(location) + ' is not crowded"!';
+
+        db.database.getUsers(function(users) {
+            console.log('texting everyone')
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].get('phoneNumber') === user) {
+                    console.log('not texting ' + user);
+                    continue;
+                }
+                console.log('sending all to ' + users[i].get('phoneNumber'));
+                notify.send(users[i].get('phoneNumber'), msg, null);
             }
         });
     }

@@ -24,6 +24,15 @@ module.exports = function() {
     
     return {
         database: {
+            getUsers: function(callback) {
+                var query = new Parse.Query('Account');
+                query.descending('phoneNumber').find({
+                    success: callback,
+                    error: function(err) {
+                        console.log('couldn\'t table scan Accounts');
+                    }
+                })
+            },
             isUser: function(user, callback) {
                 var User = Parse.Object.extend("Account");
                 var query = new Parse.Query(User);
