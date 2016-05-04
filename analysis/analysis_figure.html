@@ -1,0 +1,70 @@
+ <html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawCurveTypes);
+
+function drawCurveTypes() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Time');
+      data.addColumn('number', 'Huntsman Hall');
+      data.addColumn('number', 'Blarneys Stone');
+
+      data.addRows([
+       [ 0 , 0.666666667 , 1 ] ,
+          [ 1 , 1 , 1 ] ,
+          [ 2 , 1 , 0.666666667 ] ,
+          [ 3 , 0.6 , 0.375 ] ,
+          [ 4 , 0 , 0 ] ,
+          [ 5 , 0 , 0 ] ,
+          [ 6 , 0 , 0 ] ,
+          [ 7 , 0 , 0 ] ,
+          [ 8 , 0 , 0 ] ,
+          [ 9 , 1 , 0 ] ,
+          [ 10  , 1 , 0 ] ,
+          [ 11  , 1 , 0 ] ,
+          [ 12  , 1 , 0 ] ,
+          [ 13  , 1 , 0 ] ,
+          [ 14  , 1 , 0 ] ,
+          [ 15  , 1 , 0 ] ,
+          [ 16  , 1 , 0 ] ,
+          [ 17  , 1 , 0 ] ,
+          [ 18  , 1 , 0 ] ,
+          [ 19  , 1 , 0 ] ,
+          [ 20  , 0.6 , 0 ] ,
+          [ 21  , 1 , 0 ] ,
+          [ 22  , 1 , 1 ] ,
+          [ 23  , 1 , 0.8 ] 
+      ]);
+
+      var options = {
+        title: 'Average popularity levels of locations on Penn\'s campus on any given day',
+        hAxis: {
+          title: 'Hour of day',
+          gridlines: {
+            count: 24,
+          }
+        },
+        vAxis: {
+          title: 'Popularity',
+          viewWindowMode:'explicit',
+          viewWindow: {
+              max:1,
+              min:0
+            },
+        },
+        series: {
+          1: {curveType: 'function'}
+        },
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px"></div>
+  </body>
+</html>
