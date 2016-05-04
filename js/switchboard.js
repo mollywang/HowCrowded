@@ -22,6 +22,20 @@ var error = function(callback) {
     callback(res2);
 }
 
+var trueName = function(abbrev) {
+    if (abbrev === 'blarn') return 'Blarney'
+    else if (abbrev === 'hunts') return 'Huntsman'
+    else if (abbrev === 'smoke') return 'Smokes'
+    else if (abbrev === 'copa') return 'Copa'
+    else if (abbrev === 'harve') return 'Harvest'
+    else if (abbrev === 'commo') return 'Commons'
+    else if (abbrev === 'starb') return 'Starbucks'
+    else if (abbrev === 'saxby') return 'Saxby'
+    else if (abbrev === 'rodin') return 'Rodin'
+    else if (abbrev === 'harri') return 'Harrison'
+    else if (abbrev === 'harnw') return 'Harnwell'
+}
+
 var checkResponse = function(user, res, callback) {
 
     console.log('checking response')
@@ -30,9 +44,9 @@ var checkResponse = function(user, res, callback) {
     var split = res.split(' ');
     if (split.length == 2) {
         console.log('its a report');
-        var location = split[0];
+        var location = split[0].substring(0, 5).toLowerCase();
         var answer   = split[1];
-        if (LOCATIONS.indexOf(location.substring(0, 5).toLowerCase()) === -1) {
+        if (LOCATIONS.indexOf(location) === -1) {
             error(callback);
             return;
         }
@@ -52,7 +66,7 @@ var checkResponse = function(user, res, callback) {
     // question 
     else if (split.length == 1) {
         console.log('its a question');
-        var location = res.replace('?', '').replace('\'', '');
+        var location = res.replace('?', '').replace('\'', '').substring(0, 5).toLowerCase();
 
         if (LOCATIONS.indexOf(location) === -1) {
             error(callback);
@@ -62,7 +76,7 @@ var checkResponse = function(user, res, callback) {
         aggregation.score.getScore(location, new Date().getHours(), function(ans) {
             console.log('retrieved the score');
             if (ans.crowded) {
-                var msg = location + ' is crowded'
+                var msg = trueName(location) + ' is crowded'
                 if (ans.value === NaN) {
                     msg = msg + ' but we have no current reports to back that up.'
                 } else {
