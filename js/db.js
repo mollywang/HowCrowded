@@ -36,7 +36,7 @@ module.exports = function() {
             getAskers: function(location, callback) {
                 var query = new Parse.Query('Query');
                 query.equalTo("Place", location);
-                query.equalTo("Time", new Date().getHours() + 3)
+                query.equalTo("Time", new Date().getHours())
                 query.descending('createdAt').find({
                     success: function(results) {
                         callback(results);
@@ -48,7 +48,7 @@ module.exports = function() {
                 var created = new Query();
                 created.set("phoneNumber", user);
                 created.set("Place", location);
-                created.set("Time", new Date().getHours() + 3);
+                created.set("Time", new Date().getHours());
                 created.save(null, {
                                 success: function() {
                                     callback();
