@@ -18,7 +18,7 @@ var error = function(callback) {
         'We don\'t understand you. Try:\n' +
         '"[LOCATION] is(n\'t) crowded" to report if a place is crowded\n' +
         'or \n' +
-        '"Is [LOCATION] crowded?" to ask if a place is crowded right now\n' 
+        '"Is [LOCATION] crowded?" to ask if a place is crowded now \n' 
     var res2 = '(Try a bar or study space on the west end of campus)'
     callback(res1);
     callback(res2);
