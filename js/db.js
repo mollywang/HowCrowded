@@ -18,6 +18,7 @@ module.exports = function() {
     // initialize any db shit here
     var cloud = require("parse-cloud-express");
     var Parse = cloud.Parse;
+    var TIME_SHIFT = 4;
 
     Parse.initialize("EADFqiDJ5SS1qXkcJM6FILbpT9d14sO5gO3FwksD",
                  "bdY6CgnZI7bNTxFWoepER874qK81WYLYUT62xSVp");
@@ -34,26 +35,27 @@ module.exports = function() {
                 })
             },
             getAskers: function(location, callback) {
-                var query = new Parse.Query('Query');
+                var query = new Parse.Query('Question');
                 query.equalTo("Place", location);
-                query.equalTo("Time", (new Date().getHours() + 4) % 24);
+                query.equalTo("Time", (new Date().getHours()) % 24);
                 query.descending('createdAt').find({
                     success: function(results) {
                         callback(results);
                     }
                 })
             },
-            addQuery: function(user, location, callback) {
-                var Query = Parse.Object.extend("Query");
-                var created = new Query();
+            addQuestion: function(user, location, callback) {
+                console.log('adding question about ' + location + 'from ' + user);
+                var Question = Parse.Object.extend("Question");
+                var created = new Question();
                 created.set("phoneNumber", user);
                 created.set("Place", location);
                 created.set("Time", new Date().getHours());
                 created.save(null, {
-                                success: function() {
-                                    callback();
-                                }
-                            });  
+                    success: function() {
+                        callback();
+                    }
+                });  
             },
             isUser: function(user, callback) {
                 var User = Parse.Object.extend("Account");
