@@ -33,6 +33,28 @@ module.exports = function() {
                     }
                 })
             },
+            getAskers: function(location, callback) {
+                var query = new Parse.Query('Query');
+                query.equalTo("Place", location);
+                query.equalTo("Time", new Date().getHours() + 3)
+                query.descending('createdAt').find({
+                    success: function(results) {
+                        callback(results);
+                    }
+                })
+            },
+            addQuery: function(user, location, callback) {
+                var Query = Parse.Object.extend("Query");
+                var created = new Query();
+                created.set("phoneNumber", user);
+                created.set("Place", location);
+                created.set("Time", new Date().getHours() + 3);
+                created.save(null, {
+                                success: function() {
+                                    callback();
+                                }
+                            });  
+            },
             isUser: function(user, callback) {
                 var User = Parse.Object.extend("Account");
                 var query = new Parse.Query(User);
@@ -58,6 +80,29 @@ module.exports = function() {
                     error: function(error) {
                         console.log('ERROR IN isUSER');
                         console.log(error);
+                    }
+                });
+            },
+            removeUser: function(user, callback) {
+                var User = Parse.Object.extend("Account");
+                var query = new Parse.Query(User);
+                query.equalTo("phoneNumber", user);
+                query.find({
+                    success: function(results) {
+                        results[0].destroy({
+                            success: function() {
+                                console.log("User was removed from database");
+                                callback();
+                            },
+                            error: function(error) {
+                                console.log("User could not be removed from database");
+                                callback();
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.log("User was not in database");
+                        callback();
                     }
                 });
             },
